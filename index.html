@@ -1,4031 +1,1135 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <meta
-    name="description"
-    content="Nikita Sapianyk — Front-End Developer creating modern, responsive and polished digital experiences."
-  />
-
-  <meta name="theme-color" content="#07080b" />
-
-  <title>Nikita Sapianyk — Front-End Developer</title>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
-    rel="stylesheet"
-  />
-
-  <style>
-    /* =========================================================
-       DESIGN TOKENS
-    ========================================================= */
-
-    :root {
-      --bg: #06070a;
-      --bg-soft: #0b0d12;
-
-      --glass: rgba(255, 255, 255, 0.052);
-      --glass-2: rgba(255, 255, 255, 0.075);
-      --glass-3: rgba(255, 255, 255, 0.10);
-
-      --border: rgba(255, 255, 255, 0.095);
-      --border-soft: rgba(255, 255, 255, 0.06);
-      --border-strong: rgba(255, 255, 255, 0.17);
-
-      --text: #f4f5f7;
-      --text-soft: #b1b5c0;
-      --text-muted: #7e838f;
-      --text-faint: #555a65;
-
-      --purple: #8b5cf6;
-      --purple-light: #b59cff;
-      --blue: #758cff;
-      --cyan: #67e8f9;
-      --green: #57e2a3;
-
-      --gradient:
-        linear-gradient(
-          135deg,
-          #a78bfa 0%,
-          #818cf8 42%,
-          #67e8f9 100%
-        );
-
-      --gradient-dark:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.075),
-          rgba(255,255,255,.018)
-        );
-
-      --shadow:
-        0 35px 100px rgba(0,0,0,.38);
-
-      --shadow-small:
-        0 15px 50px rgba(0,0,0,.18);
-
-      --container: 1180px;
-      --header-height: 74px;
-
-      --radius-xl: 34px;
-      --radius-lg: 26px;
-      --radius-md: 20px;
-      --radius-sm: 14px;
-
-      --ease: cubic-bezier(.22, 1, .36, 1);
-    }
-
-    html[data-theme="light"] {
-      --bg: #eef0f5;
-      --bg-soft: #e7e9ef;
-
-      --glass: rgba(255,255,255,.48);
-      --glass-2: rgba(255,255,255,.63);
-      --glass-3: rgba(255,255,255,.78);
-
-      --border: rgba(15,18,25,.095);
-      --border-soft: rgba(15,18,25,.06);
-      --border-strong: rgba(15,18,25,.16);
-
-      --text: #111318;
-      --text-soft: #5d626c;
-      --text-muted: #7f848f;
-      --text-faint: #9da2ac;
-
-      --shadow:
-        0 30px 90px rgba(50,55,75,.13);
-
-      --shadow-small:
-        0 18px 50px rgba(50,55,75,.1);
-    }
-
-    /* =========================================================
-       RESET
-    ========================================================= */
-
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 110px;
-    }
-
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-
-      font-family: "DM Sans", sans-serif;
-      color: var(--text);
-
-      background:
-        radial-gradient(
-          850px circle at 5% -5%,
-          rgba(139,92,246,.17),
-          transparent 42%
-        ),
-        radial-gradient(
-          700px circle at 98% 10%,
-          rgba(103,232,249,.085),
-          transparent 38%
-        ),
-        radial-gradient(
-          650px circle at 50% 105%,
-          rgba(117,140,255,.08),
-          transparent 40%
-        ),
-        var(--bg);
-
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-
-      transition:
-        background .5s ease,
-        color .5s ease;
-    }
-
-    body::before {
-      content: "";
-
-      position: fixed;
-      inset: 0;
-
-      z-index: 9999;
-      pointer-events: none;
-
-      opacity: .035;
-
-      background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    }
-
-    body::after {
-      content: "";
-
-      position: fixed;
-      inset: 0;
-
-      z-index: -1;
-      pointer-events: none;
-
-      background-image:
-        linear-gradient(
-          rgba(255,255,255,.018) 1px,
-          transparent 1px
-        ),
-        linear-gradient(
-          90deg,
-          rgba(255,255,255,.018) 1px,
-          transparent 1px
-        );
-
-      background-size: 68px 68px;
-
-      mask-image:
-        linear-gradient(
-          to bottom,
-          black,
-          transparent 85%
-        );
-    }
-
-    html[data-theme="light"] body::after {
-      background-image:
-        linear-gradient(
-          rgba(0,0,0,.018) 1px,
-          transparent 1px
-        ),
-        linear-gradient(
-          90deg,
-          rgba(0,0,0,.018) 1px,
-          transparent 1px
-        );
-    }
-
-    ::selection {
-      color: #050507;
-      background: var(--cyan);
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
-    button {
-      border: 0;
-      background: none;
-      color: inherit;
-      font: inherit;
-      cursor: pointer;
-    }
-
-    /* =========================================================
-       UTILITIES
-    ========================================================= */
-
-    .container {
-      width: min(calc(100% - 44px), var(--container));
-      margin-inline: auto;
-    }
-
-    .section {
-      padding: 135px 0;
-    }
-
-    .mono {
-      font-family: "IBM Plex Mono", monospace;
-    }
-
-    .gradient-text {
-      color: transparent;
-
-      background: var(--gradient);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-
-      gap: 30px;
-      margin-bottom: 52px;
-    }
-
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-
-      color: var(--purple-light);
-
-      font-family: "IBM Plex Mono", monospace;
-      font-size: .66rem;
-
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
-
-    .section-label::before {
-      content: "";
-
-      width: 20px;
-      height: 1px;
-
-      background: var(--gradient);
-    }
-
-    .section-title {
-      max-width: 850px;
-
-      margin-top: 18px;
-
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: clamp(
-        2.4rem,
-        5vw,
-        4.2rem
-      );
-
-      line-height: .98;
-
-      font-weight: 600;
-
-      letter-spacing: -.055em;
-    }
-
-    .section-title span {
-      color: var(--text-faint);
-    }
-
-    /* =========================================================
-       HEADER
-    ========================================================= */
-
-    .site-header {
-      position: sticky;
-      top: 10px;
-      z-index: 1000;
-
-      height: var(--header-height);
-
-      margin: 0 10px;
-
-      border: 1px solid var(--border);
-      border-radius: 22px;
-
-      background:
-        rgba(7,8,11,.64);
-
-      backdrop-filter:
-        blur(28px)
-        saturate(150%);
-
-      -webkit-backdrop-filter:
-        blur(28px)
-        saturate(150%);
-
-      box-shadow:
-        var(--shadow-small),
-        inset 0 1px rgba(255,255,255,.07);
-    }
-
-    html[data-theme="light"] .site-header {
-      background: rgba(255,255,255,.55);
-    }
-
-    .site-nav {
-      height: 100%;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 20px;
-    }
-
-    .logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-
-      flex-shrink: 0;
-
-      font-family: "Space Grotesk", sans-serif;
-      font-size: .9rem;
-      font-weight: 600;
-    }
-
-    .logo__mark {
-      position: relative;
-
-      width: 39px;
-      height: 39px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 13px;
-
-      color: white;
-
-      font-size: .78rem;
-      font-weight: 700;
-
-      background: var(--gradient);
-
-      box-shadow:
-        0 8px 25px rgba(139,92,246,.28),
-        inset 0 1px rgba(255,255,255,.4);
-
-      overflow: hidden;
-    }
-
-    .logo__mark::after {
-      content: "";
-
-      position: absolute;
-      inset: 1px;
-
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: inherit;
-    }
-
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .nav-menu a {
-      position: relative;
-
-      padding: 8px 13px;
-
-      border-radius: 999px;
-
-      color: var(--text-muted);
-
-      font-size: .78rem;
-      font-weight: 500;
-
-      transition:
-        color .3s ease,
-        background .3s ease;
-    }
-
-    .nav-menu a:hover,
-    .nav-menu a.is-active {
-      color: var(--text);
-      background: var(--glass);
-    }
-
-    .nav-menu a.is-active::after {
-      content: "";
-
-      position: absolute;
-
-      width: 4px;
-      height: 4px;
-
-      left: 50%;
-      bottom: 4px;
-
-      border-radius: 50%;
-
-      background: var(--cyan);
-
-      box-shadow:
-        0 0 14px var(--cyan);
-
-      transform: translateX(-50%);
-    }
-
-    .nav-tools {
-      display: flex;
-      gap: 7px;
-    }
-
-    .icon-btn {
-      display: grid;
-      place-items: center;
-
-      width: 40px;
-      height: 40px;
-
-      border: 1px solid var(--border);
-      border-radius: 50%;
-
-      background: var(--glass);
-
-      backdrop-filter: blur(18px);
-
-      transition:
-        transform .4s var(--ease),
-        background .3s ease,
-        border-color .3s ease;
-    }
-
-    .icon-btn:hover {
-      transform: translateY(-2px);
-
-      background: var(--glass-2);
-      border-color: var(--border-strong);
-    }
-
-    .icon-btn svg {
-      width: 17px;
-      height: 17px;
-    }
-
-    .menu-toggle {
-      display: none;
-    }
-
-    /* =========================================================
-       HERO
-    ========================================================= */
-
-    .hero {
-      padding: 105px 0 80px;
-    }
-
-    .hero__grid {
-      display: grid;
-
-      grid-template-columns:
-        1.08fr
-        .92fr;
-
-      align-items: center;
-
-      gap: 80px;
-    }
-
-    .hero__content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero__eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-
-      padding: 8px 12px;
-
-      border: 1px solid rgba(139,92,246,.2);
-      border-radius: 999px;
-
-      color: var(--purple-light);
-
-      font-family: "IBM Plex Mono", monospace;
-      font-size: .64rem;
-
-      background:
-        rgba(139,92,246,.055);
-
-      box-shadow:
-        inset 0 1px rgba(255,255,255,.04);
-    }
-
-    .hero__eyebrow::before {
-      content: "";
-
-      width: 7px;
-      height: 7px;
-
-      border-radius: 50%;
-
-      background: var(--purple);
-
-      box-shadow:
-        0 0 15px var(--purple);
-    }
-
-    .hero__title {
-      max-width: 840px;
-
-      margin-top: 30px;
-
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size:
-        clamp(
-          3.6rem,
-          7.7vw,
-          7.5rem
-        );
-
-      line-height: .86;
-
-      font-weight: 600;
-
-      letter-spacing: -.075em;
-    }
-
-    .hero__title em {
-      font-style: normal;
-
-      color: transparent;
-
-      background: var(--gradient);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero__desc {
-      max-width: 610px;
-
-      margin-top: 30px;
-
-      color: var(--text-soft);
-
-      font-size: 1rem;
-      line-height: 1.85;
-    }
-
-    .hero__actions {
-      display: flex;
-      flex-wrap: wrap;
-
-      gap: 11px;
-
-      margin-top: 34px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-
-      min-height: 50px;
-
-      padding: 0 20px;
-
-      border-radius: 999px;
-
-      font-size: .8rem;
-      font-weight: 600;
-
-      transition:
-        transform .45s var(--ease),
-        box-shadow .4s ease,
-        border-color .3s ease,
-        background .3s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .btn svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    .btn--primary {
-      position: relative;
-
-      color: white;
-
-      border: 1px solid rgba(255,255,255,.17);
-
-      background: var(--gradient);
-
-      box-shadow:
-        0 15px 40px rgba(118,92,246,.24),
-        inset 0 1px rgba(255,255,255,.3);
-
-      overflow: hidden;
-    }
-
-    .btn--primary::after {
-      content: "";
-
-      position: absolute;
-      inset: 0;
-
-      background:
-        linear-gradient(
-          110deg,
-          transparent 25%,
-          rgba(255,255,255,.35),
-          transparent 75%
-        );
-
-      transform: translateX(-120%);
-
-      transition:
-        transform .75s var(--ease);
-    }
-
-    .btn--primary:hover::after {
-      transform: translateX(120%);
-    }
-
-    .btn--ghost {
-      border: 1px solid var(--border);
-
-      background:
-        var(--glass);
-
-      backdrop-filter:
-        blur(20px);
-    }
-
-    .btn--ghost:hover {
-      border-color: var(--border-strong);
-
-      background:
-        var(--glass-2);
-    }
-
-    .hero__tags {
-      display: flex;
-      flex-wrap: wrap;
-
-      gap: 7px;
-
-      margin-top: 28px;
-    }
-
-    .tag {
-      padding: 7px 11px;
-
-      border: 1px solid var(--border);
-      border-radius: 999px;
-
-      color: var(--text-muted);
-
-      font-family: "IBM Plex Mono", monospace;
-      font-size: .63rem;
-
-      background:
-        rgba(255,255,255,.023);
-
-      backdrop-filter:
-        blur(12px);
-
-      transition:
-        transform .3s ease,
-        color .3s ease,
-        border-color .3s ease;
-    }
-
-    .tag:hover {
-      color: var(--text);
-
-      border-color:
-        var(--border-strong);
-
-      transform: translateY(-2px);
-    }
-
-    /* =========================================================
-       HERO IMAGE
-    ========================================================= */
-
-    .hero__visual {
-      position: relative;
-
-      padding: 12px;
-
-      border: 1px solid var(--border);
-      border-radius: 36px;
-
-      background: var(--gradient-dark);
-
-      backdrop-filter:
-        blur(30px)
-        saturate(130%);
-
-      box-shadow:
-        var(--shadow),
-        inset 0 1px rgba(255,255,255,.09);
-
-      transform: rotate(1.8deg);
-
-      transition:
-        transform .7s var(--ease);
-    }
-
-    .hero__visual:hover {
-      transform:
-        rotate(0deg)
-        translateY(-8px);
-    }
-
-    .hero__visual::before {
-      content: "";
-
-      position: absolute;
-
-      inset: -18%;
-
-      z-index: -1;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(139,92,246,.28),
-          transparent 48%
-        );
-
-      filter: blur(50px);
-
-      opacity: .65;
-    }
-
-    .hero__visual::after {
-      content: "";
-
-      position: absolute;
-
-      top: 18px;
-      left: 18px;
-
-      width: 130px;
-      height: 130px;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(103,232,249,.17),
-          transparent 70%
-        );
-
-      filter: blur(14px);
-    }
-
-    .hero__photo {
-      width: 100%;
-
-      aspect-ratio: .94;
-
-      object-fit: cover;
-
-      border-radius: 27px;
-
-      border: 1px solid rgba(255,255,255,.09);
-
-      filter:
-        saturate(.86)
-        contrast(1.04);
-
-      transition:
-        transform .9s var(--ease),
-        filter .5s ease;
-    }
-
-    .hero__visual:hover .hero__photo {
-      transform: scale(1.025);
-
-      filter:
-        saturate(1)
-        contrast(1.05);
-    }
-
-    .photo-floating-card {
-      position: absolute;
-
-      right: -18px;
-      bottom: 35px;
-
-      z-index: 5;
-
-      min-width: 180px;
-
-      padding: 14px 16px;
-
-      border: 1px solid var(--border);
-      border-radius: 16px;
-
-      background:
-        rgba(10,11,15,.62);
-
-      backdrop-filter:
-        blur(24px);
-
-      box-shadow:
-        0 20px 55px rgba(0,0,0,.25),
-        inset 0 1px rgba(255,255,255,.08);
-
-      animation:
-        floating 4s ease-in-out infinite;
-    }
-
-    html[data-theme="light"] .photo-floating-card {
-      background:
-        rgba(255,255,255,.72);
-    }
-
-    .photo-floating-top {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      color: var(--green);
-
-      font-family: "IBM Plex Mono", monospace;
-      font-size: .57rem;
-
-      text-transform: uppercase;
-    }
-
-    .photo-floating-top::before {
-      content: "";
-
-      width: 6px;
-      height: 6px;
-
-      border-radius: 50%;
-
-      background: var(--green);
-
-      box-shadow:
-        0 0 10px var(--green);
-    }
-
-    .photo-floating-value {
-      margin-top: 5px;
-
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    @keyframes floating {
-      0%, 100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-9px);
-      }
-    }
-
-    /* =========================================================
-       ABOUT
-    ========================================================= */
-
-    .about-grid {
-      display: grid;
-
-      grid-template-columns:
-        1fr
-        1fr;
-
-      gap: 80px;
-
-      align-items: start;
-    }
-
-    .about-text {
-      color: var(--text-soft);
-
-      font-size: 1.08rem;
-      line-height: 1.95;
-    }
-
-    .about-text strong {
-      color: var(--text);
-    }
-
-    .about-note {
-      margin-top: 28px;
-
-      padding: 20px 22px;
-
-      border-left:
-        2px solid var(--purple);
-
-      color: var(--text-soft);
-
-      font-size: .88rem;
-
-      line-height: 1.7;
-
-      background:
-        linear-gradient(
-          90deg,
-          rgba(139,92,246,.08),
-          transparent
-        );
-    }
-
-    .stats-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
-      gap: 14px;
-    }
-
-    .stat-card {
-      position: relative;
-
-      min-height: 190px;
-
-      padding: 25px;
-
-      border-radius: var(--radius-lg);
-
-      border: 1px solid var(--border);
-
-      background: var(--gradient-dark);
-
-      backdrop-filter:
-        blur(26px);
-
-      overflow: hidden;
-
-      box-shadow:
-        inset 0 1px rgba(255,255,255,.06);
-
-      transition:
-        transform .5s var(--ease),
-        border-color .35s ease,
-        background .35s ease;
-    }
-
-    .stat-card::before {
-      content: "";
-
-      position: absolute;
-
-      width: 180px;
-      height: 180px;
-
-      right: -90px;
-      bottom: -90px;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(139,92,246,.2),
-          transparent 68%
-        );
-
-      filter: blur(15px);
-    }
-
-    .stat-card:hover {
-      transform: translateY(-7px);
-
-      border-color:
-        rgba(139,92,246,.27);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.09),
-          rgba(255,255,255,.025)
-        );
-    }
-
-    .stat-card__num {
-      position: relative;
-      z-index: 2;
-
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: 3.3rem;
-
-      line-height: 1;
-
-      font-weight: 600;
-
-      letter-spacing: -.065em;
-
-      background: var(--gradient);
-
-      color: transparent;
-
-      background-clip: text;
-      -webkit-background-clip: text;
-
-      -webkit-text-fill-color: transparent;
-    }
-
-    .stat-card__label {
-      position: absolute;
-
-      left: 25px;
-      right: 25px;
-      bottom: 23px;
-
-      color: var(--text-muted);
-
-      font-size: .76rem;
-
-      line-height: 1.5;
-    }
-
-    /* =========================================================
-       SKILLS
-    ========================================================= */
-
-    .skills-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 15px;
-    }
-
-    .skill-item {
-      position: relative;
-
-      min-height: 335px;
-
-      padding: 31px;
-
-      border-radius: var(--radius-lg);
-
-      border: 1px solid var(--border);
-
-      background: var(--gradient-dark);
-
-      backdrop-filter:
-        blur(28px);
-
-      overflow: hidden;
-
-      transition:
-        transform .55s var(--ease),
-        border-color .35s ease,
-        background .35s ease;
-    }
-
-    .skill-item::before {
-      content: "";
-
-      position: absolute;
-
-      width: 260px;
-      height: 260px;
-
-      top: -150px;
-      right: -120px;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(139,92,246,.18),
-          transparent 70%
-        );
-
-      filter: blur(15px);
-    }
-
-    .skill-item:hover {
-      transform: translateY(-8px);
-
-      border-color:
-        rgba(139,92,246,.3);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.09),
-          rgba(255,255,255,.022)
-        );
-    }
-
-    .skill-item__head {
-      position: relative;
-      z-index: 2;
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      gap: 15px;
-    }
-
-    .skill-item__head h3 {
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    .skill-item__level {
-      color: var(--cyan);
-
-      font-family: "IBM Plex Mono", monospace;
-
-      font-size: .6rem;
-
-      letter-spacing: .1em;
-
-      text-transform: uppercase;
-    }
-
-    .skill-item__desc {
-      position: relative;
-      z-index: 2;
-
-      margin-top: 15px;
-
-      color: var(--text-soft);
-
-      font-size: .82rem;
-
-      line-height: 1.8;
-    }
-
-    .skill-item__bar {
-      position: relative;
-      z-index: 2;
-
-      height: 3px;
-
-      margin-top: 28px;
-
-      border-radius: 999px;
-
-      background:
-        rgba(255,255,255,.06);
-
-      overflow: hidden;
-    }
-
-    .skill-item__bar span {
-      display: block;
-
-      width: var(--pct);
-      height: 100%;
-
-      border-radius: inherit;
-
-      background: var(--gradient);
-
-      box-shadow:
-        0 0 18px rgba(139,92,246,.4);
-
-      transform-origin: left;
-
-      animation:
-        skillGrow 1.3s var(--ease) both;
-    }
-
-    @keyframes skillGrow {
-      from {
-        transform: scaleX(0);
-      }
-
-      to {
-        transform: scaleX(1);
-      }
-    }
-
-    .skill-item__tags {
-      position: relative;
-      z-index: 2;
-
-      display: flex;
-      flex-wrap: wrap;
-
-      gap: 7px;
-
-      margin-top: 20px;
-    }
-
-    /* =========================================================
-       PROJECTS
-    ========================================================= */
-
-    .projects-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
-      gap: 15px;
-    }
-
-    .project {
-      position: relative;
-
-      display: flex;
-      flex-direction: column;
-
-      min-height: 420px;
-
-      padding: 30px;
-
-      border-radius: var(--radius-xl);
-
-      border: 1px solid var(--border);
-
-      background: var(--gradient-dark);
-
-      backdrop-filter:
-        blur(30px);
-
-      overflow: hidden;
-
-      box-shadow:
-        inset 0 1px rgba(255,255,255,.06);
-
-      transition:
-        transform .55s var(--ease),
-        border-color .4s ease,
-        box-shadow .5s ease;
-    }
-
-    .project::before {
-      content: "";
-
-      position: absolute;
-
-      width: 340px;
-      height: 340px;
-
-      top: -170px;
-      right: -170px;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(139,92,246,.19),
-          transparent 68%
-        );
-
-      filter: blur(20px);
-
-      opacity: 0;
-
-      transition:
-        opacity .5s ease;
-    }
-
-    .project:hover {
-      transform: translateY(-8px);
-
-      border-color:
-        rgba(139,92,246,.3);
-
-      box-shadow:
-        var(--shadow),
-        inset 0 1px rgba(255,255,255,.08);
-    }
-
-    .project:hover::before {
-      opacity: 1;
-    }
-
-    .project--featured {
-      grid-column: 1 / -1;
-
-      min-height: 500px;
-
-      display: grid;
-
-      grid-template-columns:
-        1fr
-        .56fr;
-
-      gap: 45px;
-
-      background:
-        radial-gradient(
-          circle at 87% 10%,
-          rgba(103,232,249,.10),
-          transparent 27%
-        ),
-        radial-gradient(
-          circle at 12% 90%,
-          rgba(139,92,246,.13),
-          transparent 34%
-        ),
-        var(--gradient-dark);
-    }
-
-    .project__content {
-      position: relative;
-      z-index: 2;
-
-      display: flex;
-      flex-direction: column;
-    }
-
-    .project__top {
-      display: flex;
-
-      justify-content: space-between;
-      align-items: center;
-
-      gap: 15px;
-    }
-
-    .project__num {
-      color: var(--text-faint);
-
-      font-family: "IBM Plex Mono", monospace;
-
-      font-size: .62rem;
-
-      letter-spacing: .12em;
-    }
-
-    .project__type {
-      padding: 7px 10px;
-
-      border: 1px solid rgba(139,92,246,.2);
-
-      border-radius: 999px;
-
-      color: var(--purple-light);
-
-      font-family: "IBM Plex Mono", monospace;
-
-      font-size: .58rem;
-
-      letter-spacing: .09em;
-
-      background:
-        rgba(139,92,246,.055);
-    }
-
-    .project__title {
-      margin-top: 70px;
-
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size:
-        clamp(
-          2.1rem,
-          4.2vw,
-          4.5rem
-        );
-
-      line-height: .95;
-
-      letter-spacing: -.06em;
-
-      font-weight: 600;
-    }
-
-    .project:not(.project--featured)
-    .project__title {
-      margin-top: 62px;
-
-      font-size:
-        clamp(
-          2rem,
-          3vw,
-          2.7rem
-        );
-    }
-
-    .project__desc {
-      max-width: 590px;
-
-      margin-top: 18px;
-
-      color: var(--text-soft);
-
-      font-size: .84rem;
-
-      line-height: 1.8;
-    }
-
-    .project__tags {
-      display: flex;
-      flex-wrap: wrap;
-
-      gap: 7px;
-
-      margin-top: 21px;
-    }
-
-    .project__tag {
-      padding: 6px 9px;
-
-      border: 1px solid var(--border);
-
-      border-radius: 8px;
-
-      color: var(--text-muted);
-
-      font-family: "IBM Plex Mono", monospace;
-
-      font-size: .59rem;
-
-      background:
-        rgba(255,255,255,.022);
-    }
-
-    .project__footer {
-      display: flex;
-
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 15px;
-
-      margin-top: auto;
-      padding-top: 30px;
-    }
-
-    .project__link {
-      display: inline-flex;
-
-      align-items: center;
-
-      gap: 8px;
-
-      color: var(--text);
-
-      font-size: .78rem;
-
-      font-weight: 600;
-
-      transition:
-        gap .35s var(--ease),
-        color .3s ease;
-    }
-
-    .project__link:hover {
-      gap: 13px;
-      color: var(--cyan);
-    }
-
-    .project__link svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    /* Featured visual */
-
-    .project__visual {
-      display: grid;
-      place-items: center;
-
-      position: relative;
-    }
-
-    .orbit {
-      position: relative;
-
-      width: min(310px, 90%);
-
-      aspect-ratio: 1;
-
-      border:
-        1px solid rgba(255,255,255,.08);
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(139,92,246,.12),
-          transparent 55%
-        );
-    }
-
-    .orbit::before,
-    .orbit::after {
-      content: "";
-
-      position: absolute;
-
-      border:
-        1px solid rgba(255,255,255,.055);
-
-      border-radius: 50%;
-    }
-
-    .orbit::before {
-      inset: 14%;
-    }
-
-    .orbit::after {
-      inset: 28%;
-    }
-
-    .orbit-center {
-      position: absolute;
-
-      top: 50%;
-      left: 50%;
-
-      width: 92px;
-      height: 92px;
-
-      display: grid;
-      place-items: center;
-
-      border:
-        1px solid rgba(255,255,255,.11);
-
-      border-radius: 50%;
-
-      color: var(--text);
-
-      font-family: "IBM Plex Mono", monospace;
-
-      font-size: .59rem;
-
-      text-align: center;
-
-      background:
-        rgba(255,255,255,.045);
-
-      backdrop-filter: blur(20px);
-
-      transform:
-        translate(-50%, -50%);
-    }
-
-    .orbit-dot {
-      position: absolute;
-
-      top: 50%;
-      left: 50%;
-
-      width: 11px;
-      height: 11px;
-
-      border-radius: 50%;
-
-      background: var(--gradient);
-
-      box-shadow:
-        0 0 28px rgba(139,92,246,.8),
-        0 0 70px rgba(103,232,249,.25);
-
-      animation:
-        orbitSpin 7s linear infinite;
-    }
-
-    @keyframes orbitSpin {
-      from {
-        transform:
-          rotate(0deg)
-          translateX(145px)
-          rotate(0deg);
-      }
-
-      to {
-        transform:
-          rotate(360deg)
-          translateX(145px)
-          rotate(-360deg);
-      }
-    }
-
-    /* =========================================================
-       CERTIFICATES
-    ========================================================= */
-
-    .certs-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
-      gap: 15px;
-    }
-
-    .cert {
-      position: relative;
-
-      padding: 31px;
-
-      border-radius: var(--radius-lg);
-
-      border: 1px solid var(--border);
-
-      background: var(--gradient-dark);
-
-      backdrop-filter:
-        blur(26px);
-
-      overflow: hidden;
-
-      transition:
-        transform .5s var(--ease),
-        border-color .35s ease;
-    }
-
-    .cert::before {
-      content: "";
-
-      position: absolute;
-
-      width: 220px;
-      height: 220px;
-
-      right: -110px;
-      top: -110px;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(103,232,249,.13),
-          transparent 70%
-        );
-
-      filter: blur(15px);
-    }
-
-    .cert:hover {
-      transform: translateY(-7px);
-
-      border-color:
-        rgba(103,232,249,.27);
-    }
-
-    .cert__icon {
-      position: relative;
-      z-index: 2;
-
-      display: grid;
-      place-items: center;
-
-      width: 48px;
-      height: 48px;
-
-      border:
-        1px solid rgba(103,232,249,.15);
-
-      border-radius: 15px;
-
-      color: var(--cyan);
-
-      background:
-        rgba(103,232,249,.045);
-
-      box-shadow:
-        inset 0 1px rgba(255,255,255,.07);
-    }
-
-    .cert__icon svg {
-      width: 21px;
-      height: 21px;
-    }
-
-    .cert__title {
-      position: relative;
-      z-index: 2;
-
-      margin-top: 30px;
-
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: 1.1rem;
-
-      font-weight: 600;
-    }
-
-    .cert__desc {
-      position: relative;
-      z-index: 2;
-
-      margin-top: 10px;
-
-      color: var(--text-soft);
-
-      font-size: .83rem;
-
-      line-height: 1.8;
-    }
-
-    .cert__footer {
-      position: relative;
-      z-index: 2;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 20px;
-
-      margin-top: 28px;
-      padding-top: 20px;
-
-      border-top:
-        1px solid var(--border);
-    }
-
-    .cert__date {
-      color: var(--text-faint);
-
-      font-family: "IBM Plex Mono", monospace;
-
-      font-size: .63rem;
-    }
-
-    /* =========================================================
-       CONTACT
-    ========================================================= */
-
-    .contact-wrap {
-      position: relative;
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        38px;
-
-      overflow: hidden;
-
-      background:
-        radial-gradient(
-          circle at 16% 100%,
-          rgba(139,92,246,.15),
-          transparent 35%
-        ),
-        radial-gradient(
-          circle at 90% 5%,
-          rgba(103,232,249,.1),
-          transparent 31%
-        ),
-        var(--gradient-dark);
-
-      backdrop-filter:
-        blur(32px)
-        saturate(140%);
-
-      box-shadow:
-        var(--shadow),
-        inset 0 1px rgba(255,255,255,.08);
-    }
-
-    .contact-wrap::before {
-      content: "";
-
-      position: absolute;
-      inset: 0;
-
-      pointer-events: none;
-
-      background:
-        linear-gradient(
-          120deg,
-          rgba(255,255,255,.075),
-          transparent 28%
-        );
-    }
-
-    .contact-inner {
-      display: grid;
-
-      grid-template-columns:
-        1.16fr
-        .84fr;
-    }
-
-    .contact-main {
-      padding:
-        clamp(36px, 6vw, 72px);
-    }
-
-    .contact-main .section-title {
-      max-width: 740px;
-    }
-
-    .contact-main p {
-      max-width: 600px;
-
-      margin-top: 22px;
-
-      color: var(--text-soft);
-
-      font-size: .96rem;
-
-      line-height: 1.85;
-    }
-
-    .contact-actions {
-      display: flex;
-      flex-wrap: wrap;
-
-      gap: 11px;
-
-      margin-top: 32px;
-    }
-
-    .contact-sidebar {
-      display: grid;
-      align-content: center;
-
-      gap: 27px;
-
-      padding: 48px;
-
-      border-left:
-        1px solid var(--border);
-
-      background:
-        rgba(255,255,255,.017);
-
-      backdrop-filter:
-        blur(22px);
-    }
-
-    .contact-item__label {
-      color: var(--text-faint);
-
-      font-family: "IBM Plex Mono", monospace;
-
-      font-size: .61rem;
-
-      letter-spacing: .12em;
-
-      text-transform: uppercase;
-    }
-
-    .contact-item__value {
-      display: inline-block;
-
-      margin-top: 6px;
-
-      font-size: .88rem;
-      font-weight: 500;
-
-      transition:
-        color .3s ease;
-    }
-
-    .contact-item__value:hover {
-      color: var(--cyan);
-    }
-
-    .social-row {
-      display: flex;
-      flex-wrap: wrap;
-
-      gap: 7px;
-
-      margin-top: 11px;
-    }
-
-    .social-link {
-      display: inline-flex;
-
-      align-items: center;
-
-      gap: 8px;
-
-      padding: 9px 12px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 999px;
-
-      color: var(--text-muted);
-
-      font-size: .67rem;
-
-      background:
-        rgba(255,255,255,.023);
-
-      transition:
-        color .3s ease,
-        border-color .3s ease,
-        transform .35s var(--ease);
-    }
-
-    .social-link:hover {
-      color: var(--text);
-
-      border-color:
-        var(--border-strong);
-
-      transform:
-        translateY(-2px);
-    }
-
-    .social-link svg {
-      width: 14px;
-      height: 14px;
-    }
-
-    /* =========================================================
-       FOOTER
-    ========================================================= */
-
-    .site-footer {
-      padding: 42px 0 52px;
-    }
-
-    .site-footer__inner {
-      display: flex;
-
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 20px;
-
-      color: var(--text-faint);
-
-      font-family: "IBM Plex Mono", monospace;
-
-      font-size: .62rem;
-    }
-
-    .site-footer__back {
-      transition:
-        color .3s ease;
-    }
-
-    .site-footer__back:hover {
-      color: var(--cyan);
-    }
-
-    /* =========================================================
-       REVEAL
-    ========================================================= */
-
-    .reveal {
-      opacity: 0;
-
-      transform:
-        translateY(32px)
-        scale(.985);
-
-      transition:
-        opacity .85s var(--ease),
-        transform .85s var(--ease);
-    }
-
-    .reveal.is-visible {
-      opacity: 1;
-
-      transform:
-        translateY(0)
-        scale(1);
-    }
-
-    /* =========================================================
-       RESPONSIVE
-    ========================================================= */
-
-    @media (max-width: 1000px) {
-
-      .hero__grid {
-        grid-template-columns: 1fr;
-
-        gap: 65px;
-      }
-
-      .hero__visual {
-        max-width: 580px;
-
-        margin-inline: auto;
-      }
-
-      .about-grid {
-        grid-template-columns: 1fr;
-
-        gap: 55px;
-      }
-
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .project--featured {
-        grid-template-columns: 1fr;
-      }
-
-      .project__visual {
-        display: none;
-      }
-
-      .contact-inner {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-sidebar {
-        border-top:
-          1px solid var(--border);
-
-        border-left: 0;
-      }
-    }
-
-    @media (max-width: 760px) {
-
-      .container {
-        width:
-          min(
-            calc(100% - 30px),
-            var(--container)
-          );
-      }
-
-      .site-header {
-        top: 7px;
-
-        height: 67px;
-
-        margin-inline: 7px;
-      }
-
-      .nav-menu {
-        position: fixed;
-
-        inset:
-          81px
-          7px
-          7px;
-
-        display: flex;
-
-        flex-direction: column;
-        justify-content: center;
-
-        gap: 4px;
-
-        padding: 30px;
-
-        border:
-          1px solid var(--border);
-
-        border-radius: 27px;
-
-        background:
-          rgba(7,8,11,.88);
-
-        backdrop-filter:
-          blur(32px)
-          saturate(150%);
-
-        opacity: 0;
-        visibility: hidden;
-
-        transform:
-          translateY(-10px)
-          scale(.98);
-
-        transition:
-          opacity .4s ease,
-          visibility .4s ease,
-          transform .4s var(--ease);
-      }
-
-      html[data-theme="light"] .nav-menu {
-        background:
-          rgba(255,255,255,.88);
-      }
-
-      .nav-menu.is-open {
-        opacity: 1;
-
-        visibility: visible;
-
-        transform:
-          translateY(0)
-          scale(1);
-      }
-
-      .nav-menu a {
-        padding: 13px 26px;
-
-        font-family:
-          "Space Grotesk",
-          sans-serif;
-
-        font-size: 1.3rem;
-      }
-
-      .menu-toggle {
-        display: flex;
-
-        flex-direction: column;
-
-        gap: 4px;
-      }
-
-      .menu-toggle span {
-        width: 18px;
-        height: 2px;
-
-        border-radius: 999px;
-
-        background: var(--text);
-
-        transition:
-          transform .4s var(--ease),
-          opacity .25s ease;
-      }
-
-      .menu-toggle[aria-expanded="true"]
-      span:nth-child(1) {
-        transform:
-          translateY(6px)
-          rotate(45deg);
-      }
-
-      .menu-toggle[aria-expanded="true"]
-      span:nth-child(2) {
-        opacity: 0;
-      }
-
-      .menu-toggle[aria-expanded="true"]
-      span:nth-child(3) {
-        transform:
-          translateY(-6px)
-          rotate(-45deg);
-      }
-
-      .hero {
-        padding:
-          75px
-          0
-          70px;
-      }
-
-      .hero__title {
-        font-size:
-          clamp(
-            3.05rem,
-            15vw,
-            5.4rem
-          );
-      }
-
-      .hero__desc {
-        font-size: .92rem;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .project--featured {
-        grid-column: auto;
-      }
-
-      .certs-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .section {
-        padding: 92px 0;
-      }
-
-      .section-heading {
-        display: block;
-      }
-    }
-
-    @media (max-width: 520px) {
-
-      .hero__visual {
-        transform: none;
-      }
-
-      .hero__visual:hover {
-        transform:
-          translateY(-5px);
-      }
-
-      .photo-floating-card {
-        right: 15px;
-        bottom: 20px;
-      }
-
-      .section-title {
-        font-size: 2.45rem;
-      }
-
-      .stat-card {
-        min-height: 160px;
-      }
-
-      .project {
-        min-height: 400px;
-      }
-
-      .project--featured {
-        min-height: 440px;
-      }
-
-      .contact-main {
-        padding: 34px 24px;
-      }
-
-      .contact-sidebar {
-        padding: 32px 24px;
-      }
-
-      .site-footer__inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Nikita Sapianyk — Front-End Developer creating modern, responsive and polished digital experiences." />
+    <meta name="theme-color" content="#07080b" />
+    <title>Nikita Sapianyk — Front-End Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-  <!-- ========================================================
+    <!-- ========================================================
        HEADER
   ========================================================= -->
 
-  <header class="site-header">
-    <div class="container site-nav">
+    <header class="site-header">
+        <div class="container site-nav">
 
-      <a class="logo" href="#home" aria-label="Nikita Sapianyk — Home">
+            <a class="logo" href="#home" aria-label="Nikita Sapianyk — Home">
 
-        <span class="logo__mark">
-          NS
-        </span>
+                <span class="logo__mark">
+                    NS
+                </span>
 
-        <span>
-          Nikita Sapianyk
-        </span>
+                <span>
+                    Nikita Sapianyk
+                </span>
 
-      </a>
-
-
-      <nav
-        class="nav-menu"
-        id="navMenu"
-        aria-label="Main navigation"
-      >
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#certificates">Certificates</a>
-        <a href="#contact">Contact</a>
-      </nav>
+            </a>
 
 
-      <div class="nav-tools">
-
-        <button
-          class="icon-btn"
-          id="themeToggle"
-          type="button"
-          aria-label="Toggle theme"
-        >
-          <svg
-            id="themeIcon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="12" r="5"></circle>
-            <path d="M12 1v2"></path>
-            <path d="M12 21v2"></path>
-            <path d="M4.22 4.22l1.42 1.42"></path>
-            <path d="M18.36 18.36l1.42 1.42"></path>
-            <path d="M1 12h2"></path>
-            <path d="M21 12h2"></path>
-            <path d="M4.22 19.78l1.42-1.42"></path>
-            <path d="M18.36 5.64l1.42-1.42"></path>
-          </svg>
-        </button>
+            <nav class="nav-menu" id="navMenu" aria-label="Main navigation">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#certificates">Certificates</a>
+                <a href="#contact">Contact</a>
+            </nav>
 
 
-        <button
-          class="icon-btn menu-toggle"
-          id="menuToggle"
-          type="button"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="navMenu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+            <div class="nav-tools">
 
-      </div>
+                <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">
+                    <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <path d="M12 1v2"></path>
+                        <path d="M12 21v2"></path>
+                        <path d="M4.22 4.22l1.42 1.42"></path>
+                        <path d="M18.36 18.36l1.42 1.42"></path>
+                        <path d="M1 12h2"></path>
+                        <path d="M21 12h2"></path>
+                        <path d="M4.22 19.78l1.42-1.42"></path>
+                        <path d="M18.36 5.64l1.42-1.42"></path>
+                    </svg>
+                </button>
 
-    </div>
-  </header>
+
+                <button class="icon-btn menu-toggle" id="menuToggle" type="button" aria-label="Open menu"
+                    aria-expanded="false" aria-controls="navMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+            </div>
+
+        </div>
+    </header>
 
 
-  <!-- ========================================================
+    <!-- ========================================================
        MAIN
   ========================================================= -->
 
-  <main id="home">
+    <main id="home">
 
-    <!-- HERO -->
+        <!-- HERO -->
 
-    <section class="hero">
+        <section class="hero">
 
-      <div class="container hero__grid">
+            <div class="container hero__grid">
 
-        <div class="hero__content reveal">
+                <div class="hero__content reveal">
 
-          <span class="hero__eyebrow">
-            Front-End Developer
-          </span>
+                    <span class="hero__eyebrow">
+                        Front-End Developer
+                    </span>
 
 
-          <h1 class="hero__title">
-            I create
-            <br>
-            <em>digital experiences</em>
-            <br>
-            people remember.
-          </h1>
+                    <h1 class="hero__title">
+                        I create
+                        <br>
+                        <em>digital experiences</em>
+                        <br>
+                        people remember.
+                    </h1>
 
 
-          <p class="hero__desc">
-            I'm Nikita Sapianyk — a Front-End Developer
-            focused on modern interfaces, responsive systems,
-            thoughtful interactions and clean implementation.
-          </p>
+                    <p class="hero__desc">
+                        I'm Nikita Sapianyk — a Front-End Developer
+                        focused on modern interfaces, responsive systems,
+                        thoughtful interactions and clean implementation.
+                    </p>
 
 
-          <div class="hero__actions">
+                    <div class="hero__actions">
 
-            <a
-              class="btn btn--primary"
-              href="#projects"
-            >
-              Explore my work
+                        <a class="btn btn--primary" href="#projects">
+                            Explore my work
 
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M7 17L17 7"></path>
-                <path d="M7 7h10v10"></path>
-              </svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M7 17L17 7"></path>
+                                <path d="M7 7h10v10"></path>
+                            </svg>
 
-            </a>
+                        </a>
 
 
-            <a
-              class="btn btn--ghost"
-              href="#contact"
-            >
-              Let's talk
-            </a>
+                        <a class="btn btn--ghost" href="#contact">
+                            Let's talk
+                        </a>
 
-          </div>
+                    </div>
 
 
-          <div class="hero__tags">
+                    <div class="hero__tags">
 
-            <span class="tag">HTML5</span>
-            <span class="tag">CSS / SCSS</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">React</span>
-            <span class="tag">Figma</span>
+                        <span class="tag">HTML5</span>
+                        <span class="tag">CSS / SCSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">React</span>
+                        <span class="tag">Figma</span>
+                        <span class="tag">Git</span>
 
-          </div>
+                    </div>
 
-        </div>
-
-
-        <div class="hero__visual reveal">
-
-          <img
-            class="hero__photo"
-            src="./photo.png"
-            alt="Portrait of Nikita Sapianyk"
-            width="640"
-            height="680"
-          />
-
-
-          <div class="photo-floating-card">
-
-            <div class="photo-floating-top">
-              Available for work
-            </div>
-
-            <div class="photo-floating-value">
-              Front-End / UI
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ABOUT -->
-
-    <section
-      class="section"
-      id="about"
-    >
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <div>
-
-            <span class="section-label">
-              01 — About
-            </span>
-
-            <h2 class="section-title">
-              Design-minded code.
-              <span>
-                Purposeful interfaces.
-              </span>
-            </h2>
-
-          </div>
-
-        </div>
-
-
-        <div class="about-grid">
-
-          <div class="reveal">
-
-            <p class="about-text">
-              I'm a Front-End Developer with
-              <strong>
-                3 years of hands-on experience
-              </strong>
-              creating responsive websites and modern
-              digital interfaces.
-            </p>
-
-            <p
-              class="about-text"
-              style="margin-top:20px;"
-            >
-              I work between design and engineering —
-              turning ideas into products that are
-              visually strong, easy to use and technically
-              clean.
-            </p>
-
-
-            <div class="about-note">
-
-              I pay attention to the details:
-              typography, spacing, hierarchy, responsive
-              behavior, motion and the little interactions
-              users remember.
-
-            </div>
-
-          </div>
-
-
-          <div class="stats-grid reveal">
-
-            <article class="stat-card">
-
-              <div class="stat-card__num">
-                3+
-              </div>
-
-              <div class="stat-card__label">
-                Years of hands-on experience
-              </div>
-
-            </article>
-
-
-            <article class="stat-card">
-
-              <div class="stat-card__num">
-                6+
-              </div>
-
-              <div class="stat-card__label">
-                Core technologies and tools
-              </div>
-
-            </article>
-
-
-            <article class="stat-card">
-
-              <div class="stat-card__num">
-                4+
-              </div>
-
-              <div class="stat-card__label">
-                Websites and portfolio projects
-              </div>
-
-            </article>
-
-
-            <article class="stat-card">
-
-              <div class="stat-card__num">
-                2
-              </div>
-
-              <div class="stat-card__label">
-                Professional certificates
-              </div>
-
-            </article>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- SKILLS -->
-
-    <section
-      class="section"
-      id="skills"
-    >
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <div>
-
-            <span class="section-label">
-              02 — Skills
-            </span>
-
-            <h2 class="section-title">
-              Built for
-              <span>
-                production.
-              </span>
-            </h2>
-
-          </div>
-
-        </div>
-
-
-        <div class="skills-grid">
-
-
-          <article class="skill-item reveal">
-
-            <div class="skill-item__head">
-
-              <h3>
-                Front-End Core
-              </h3>
-
-              <span class="skill-item__level">
-                Strong
-              </span>
-
-            </div>
-
-
-            <p class="skill-item__desc">
-              Semantic HTML, scalable CSS,
-              responsive layouts, accessibility,
-              reusable components and clean structure.
-            </p>
-
-
-            <div
-              class="skill-item__bar"
-              aria-label="92 percent"
-            >
-              <span style="--pct:92%;"></span>
-            </div>
-
-
-            <div class="skill-item__tags">
-
-              <span class="tag">HTML5</span>
-              <span class="tag">CSS3</span>
-              <span class="tag">SCSS</span>
-              <span class="tag">React</span>
-              <span class="tag">Responsive</span>
-
-            </div>
-
-          </article>
-
-
-          <article class="skill-item reveal">
-
-            <div class="skill-item__head">
-
-              <h3>
-                JavaScript & UI
-              </h3>
-
-              <span class="skill-item__level">
-                Strong
-              </span>
-
-            </div>
-
-
-            <p class="skill-item__desc">
-              Dynamic interfaces, DOM manipulation,
-              animations, component logic and
-              polished micro-interactions.
-            </p>
-
-
-            <div
-              class="skill-item__bar"
-              aria-label="84 percent"
-            >
-              <span style="--pct:84%;"></span>
-            </div>
-
-
-            <div class="skill-item__tags">
-
-              <span class="tag">JavaScript</span>
-              <span class="tag">DOM</span>
-              <span class="tag">Animation</span>
-              <span class="tag">UI Logic</span>
-
-            </div>
-
-          </article>
-
-
-          <article class="skill-item reveal">
-
-            <div class="skill-item__head">
-
-              <h3>
-                Workflow & Design
-              </h3>
-
-              <span class="skill-item__level">
-                Confident
-              </span>
-
-            </div>
-
-
-            <p class="skill-item__desc">
-              Figma implementation, Git workflows,
-              UI/UX thinking, collaboration and
-              structured delivery.
-            </p>
-
-
-            <div
-              class="skill-item__bar"
-              aria-label="78 percent"
-            >
-              <span style="--pct:78%;"></span>
-            </div>
-
-
-            <div class="skill-item__tags">
-
-              <span class="tag">Figma</span>
-              <span class="tag">Git</span>
-              <span class="tag">GitHub</span>
-              <span class="tag">UI/UX</span>
-
-            </div>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- PROJECTS -->
-
-    <section
-      class="section"
-      id="projects"
-    >
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <div>
-
-            <span class="section-label">
-              03 — Selected work
-            </span>
-
-            <h2 class="section-title">
-              Projects with
-              <span>
-                purpose.
-              </span>
-            </h2>
-
-          </div>
-
-        </div>
-
-
-        <div class="projects-grid">
-
-
-          <!-- FEATURED -->
-
-          <article class="project project--featured reveal">
-
-            <div class="project__content">
-
-              <div class="project__top">
-
-                <span class="project__num">
-                  PROJECT 01
-                </span>
-
-                <span class="project__type">
-                  COMPANY WEBSITE
-                </span>
-
-              </div>
-
-
-              <h3 class="project__title">
-                WebStudio
-              </h3>
-
-
-              <p class="project__desc">
-                A premium corporate landing page built
-                around visual hierarchy, clean typography,
-                smooth interactions and a strong modern
-                aesthetic.
-              </p>
-
-
-              <div class="project__tags">
-
-                <span class="project__tag">
-                  HTML5
-                </span>
-
-                <span class="project__tag">
-                  CSS3
-                </span>
-
-                <span class="project__tag">
-                  JavaScript
-                </span>
-
-                <span class="project__tag">
-                  UI Design
-                </span>
-
-              </div>
-
-
-              <div class="project__footer">
-
-                <a
-                  class="project__link"
-                  href="https://nikitasapianyk.github.io/webstudio2.0/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View live project
-
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M7 17L17 7"></path>
-                    <path d="M7 7h10v10"></path>
-                  </svg>
-                </a>
-
-              </div>
-
-            </div>
-
-
-            <div class="project__visual">
-
-              <div class="orbit">
-
-                <div class="orbit-center">
-                  WEB<br>
-                  STUDIO
-                </div>
-
-                <div class="orbit-dot"></div>
-
-              </div>
-
-            </div>
-
-          </article>
-
-
-          <!-- PROJECT 02 -->
-
-          <article class="project reveal">
-
-            <div class="project__content">
-
-              <div class="project__top">
-
-                <span class="project__num">
-                  PROJECT 02
-                </span>
-
-                <span class="project__type">
-                  WEATHER
-                </span>
-
-              </div>
-
-
-              <h3 class="project__title">
-                24 Forecast
-              </h3>
-
-
-              <p class="project__desc">
-                A clean weather forecasting experience
-                presenting meteorological data through
-                a simple and intuitive interface.
-              </p>
-
-
-              <div class="project__tags">
-
-                <span class="project__tag">
-                  React
-                </span>
-
-                <span class="project__tag">
-                  JavaScript
-                </span>
-
-                <span class="project__tag">
-                  CSS3
-                </span>
-
-              </div>
-
-
-              <div class="project__footer">
-
-                <a
-                  class="project__link"
-                  href="https://nikitasapianyk.github.io/project"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View live project
-
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="M7 17L17 7"></path>
-                    <path d="M7 7h10v10"></path>
-                  </svg>
-                </a>
-
-              </div>
-
-            </div>
-
-          </article>
-
-
-          <!-- PROJECT 03 -->
-
-          <article class="project reveal">
-
-            <div class="project__content">
-
-              <div class="project__top">
-
-                <span class="project__num">
-                  PROJECT 03
-                </span>
-
-                <span class="project__type">
-                  E-COMMERCE
-                </span>
-
-              </div>
-
-
-              <h3 class="project__title">
-                CtrlStore
-              </h3>
-
-
-              <p class="project__desc">
-                A modern e-commerce experience with a
-                clear structure, smooth navigation and
-                focused product presentation.
-              </p>
-
-
-              <div class="project__tags">
-
-                <span class="project__tag">
-                  HTML5
-                </span>
-
-                <span class="project__tag">
-                  CSS3
-                </span>
-
-                <span class="project__tag">
-                  JavaScript
-                </span>
-
-              </div>
-
-
-              <div class="project__footer">
-
-                <a
-                  class="project__link"
-                  href="https://nikitasapianyk.github.io/ctrl_store/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View live project
-
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="M7 17L17 7"></path>
-                    <path d="M7 7h10v10"></path>
-                  </svg>
-                </a>
-
-              </div>
-
-            </div>
-
-          </article>
-
-
-          <!-- PROJECT 04 -->
-
-          <article class="project reveal">
-
-            <div class="project__content">
-
-              <div class="project__top">
-
-                <span class="project__num">
-                  PROJECT 04
-                </span>
-
-                <span class="project__type">
-                  COMPANY
-                </span>
-
-              </div>
-
-
-              <h3 class="project__title">
-                Pharma
-              </h3>
-
-
-              <p class="project__desc">
-                A professional consulting website
-                presenting pharmaceutical expertise
-                and strategic solutions.
-              </p>
-
-
-              <div class="project__tags">
-
-                <span class="project__tag">
-                  HTML5
-                </span>
-
-                <span class="project__tag">
-                  CSS3
-                </span>
-
-                <span class="project__tag">
-                  JavaScript
-                </span>
-
-              </div>
-
-
-              <div class="project__footer">
-
-                <a
-                  class="project__link"
-                  href="https://www.ed-pharma.eu/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View live project
-
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="M7 17L17 7"></path>
-                    <path d="M7 7h10v10"></path>
-                  </svg>
-                </a>
-
-              </div>
-
-            </div>
-
-          </article>
-
-
-          <!-- CTA -->
-
-          <article class="project reveal">
-
-            <div class="project__content">
-
-              <div class="project__top">
-
-                <span class="project__num">
-                  NEXT PROJECT
-                </span>
-
-                <span class="project__type">
-                  AVAILABLE
-                </span>
-
-              </div>
-
-
-              <h3 class="project__title">
-                Your idea.
-              </h3>
-
-
-              <p class="project__desc">
-                A landing page, redesign, startup product
-                or custom web experience — this could be
-                the next project here.
-              </p>
-
-
-              <div class="project__footer">
-
-                <a
-                  class="project__link"
-                  href="#contact"
-                >
-                  Let's build it
-
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="M7 17L17 7"></path>
-                    <path d="M7 7h10v10"></path>
-                  </svg>
-                </a>
-
-              </div>
-
-            </div>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CERTIFICATES -->
-
-    <section
-      class="section"
-      id="certificates"
-    >
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <div>
-
-            <span class="section-label">
-              04 — Certificates
-            </span>
-
-            <h2 class="section-title">
-              Always
-              <span>
-                learning.
-              </span>
-            </h2>
-
-          </div>
-
-        </div>
-
-
-        <div class="certs-grid">
-
-
-          <article class="cert reveal">
-
-            <div class="cert__icon">
-
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.7"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M12 3l2.2 4.8 5.3.7-3.9 3.7.9 5.3-4.5-2.5-4.5 2.5.9-5.3-3.9-3.7 5.3-.7z"></path>
-              </svg>
-
-            </div>
-
-
-            <h3 class="cert__title">
-              HTML & CSS Professional Track
-            </h3>
-
-
-            <p class="cert__desc">
-              Structured training focused on semantic
-              markup, responsive layouts, modern CSS
-              and professional front-end practices.
-            </p>
-
-
-            <div class="cert__footer">
-
-              <time class="cert__date">
-                2023 — 2024
-              </time>
-
-
-              <a
-                class="project__link"
-                href="https://drive.google.com/file/d/1dxPm-PSxF3YoSTxdFANsw9QSWZFr_hGC/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View certificate
-
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M7 17L17 7"></path>
-                  <path d="M7 7h10v10"></path>
-                </svg>
-
-              </a>
-
-            </div>
-
-          </article>
-
-
-          <article class="cert reveal">
-
-            <div class="cert__icon">
-
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.7"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M12 3l2.2 4.8 5.3.7-3.9 3.7.9 5.3-4.5-2.5-4.5 2.5.9-5.3-3.9-3.7 5.3-.7z"></path>
-              </svg>
-
-            </div>
-
-
-            <h3 class="cert__title">
-              JavaScript Professional Track
-            </h3>
-
-
-            <p class="cert__desc">
-              Practical JavaScript training focused
-              on interactivity, logic, DOM manipulation
-              and better user experiences.
-            </p>
-
-
-            <div class="cert__footer">
-
-              <time class="cert__date">
-                2024 — 2025
-              </time>
-
-
-              <a
-                class="project__link"
-                href="https://drive.google.com/file/d/1RYgz2doDHmT7nI_7mUXsP9bfFPApCoU1/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View certificate
-
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M7 17L17 7"></path>
-                  <path d="M7 7h10v10"></path>
-                </svg>
-
-              </a>
-
-            </div>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CONTACT -->
-
-    <section
-      class="section"
-      id="contact"
-    >
-
-      <div class="container">
-
-        <div class="contact-wrap reveal">
-
-          <div class="contact-inner">
-
-
-            <div class="contact-main">
-
-              <span class="section-label">
-                05 — Contact
-              </span>
-
-
-              <h2 class="section-title">
-                Let's create something
-                <span>
-                  memorable.
-                </span>
-              </h2>
-
-
-              <p>
-                I'm open to Front-End Developer
-                opportunities, freelance collaborations
-                and product-focused web work.
-              </p>
-
-
-              <div class="contact-actions">
-
-                <a
-                  class="btn btn--primary"
-                  href="mailto:nikita.sapianyk@gmail.com"
-                >
-                  Email me
-
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <rect
-                      x="2"
-                      y="4"
-                      width="20"
-                      height="16"
-                      rx="2"
-                    ></rect>
-
-                    <path d="M22 6l-10 7L2 6"></path>
-                  </svg>
-
-                </a>
-
-
-                <a
-                  class="btn btn--ghost"
-                  href="tel:+48722756185"
-                >
-                  Call me
-                </a>
-
-              </div>
-
-            </div>
-
-
-            <aside class="contact-sidebar">
-
-
-              <div>
-
-                <div class="contact-item__label">
-                  Email
-                </div>
-
-                <a
-                  class="contact-item__value"
-                  href="mailto:nikita.sapianyk@gmail.com"
-                >
-                  nikita.sapianyk@gmail.com
-                </a>
-
-              </div>
-
-
-              <div>
-
-                <div class="contact-item__label">
-                  Phone
-                </div>
-
-                <a
-                  class="contact-item__value"
-                  href="tel:+48722756185"
-                >
-                  +48 722 756 185
-                </a>
-
-              </div>
-
-
-              <div>
-
-                <div class="contact-item__label">
-                  Social
                 </div>
 
 
-                <div class="social-row">
+                <div class="hero__visual reveal">
+
+                    <img class="hero__photo" src="./photo.png" alt="Portrait of Nikita Sapianyk" width="640"
+                        height="680" />
 
 
-                  <a
-                    class="social-link"
-                    href="https://github.com/NikitaSapianyk"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.395-.135-.345-.72-1.395-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
-                      ></path>
-                    </svg>
+                    <div class="photo-floating-card">
 
-                    GitHub
-                  </a>
+                        <div class="photo-floating-top">
+                            Available for work
+                        </div>
 
+                        <div class="photo-floating-value">
+                            Front-End / UI
+                        </div>
 
-                  <a
-                    class="social-link"
-                    href="#"
-                    aria-label="LinkedIn"
-                  >
-
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 114.127 0 2.063 2.063 0 01-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-                      ></path>
-                    </svg>
-
-                    LinkedIn
-                  </a>
-
-
-                  <a
-                    class="social-link"
-                    href="https://t.me/skylone_tt"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
-                      ></path>
-                    </svg>
-
-                    Telegram
-                  </a>
-
+                    </div>
 
                 </div>
 
-              </div>
+            </div>
 
-            </aside>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
+        </section>
 
 
-  <!-- ========================================================
+        <!-- ABOUT -->
+
+        <section class="section" id="about">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div>
+
+                        <span class="section-label">
+                            01 — About
+                        </span>
+
+                        <h2 class="section-title">
+                            Design-minded code.
+                            <span>
+                                Purposeful interfaces.
+                            </span>
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="about-grid">
+
+                    <div class="reveal">
+
+                        <p class="about-text">
+                            I'm a Front-End Developer with
+                            <strong>
+                                3 years of hands-on experience
+                            </strong>
+                            creating responsive websites and modern
+                            digital interfaces.
+                        </p>
+
+                        <p class="about-text" style="margin-top:20px;">
+                            I work between design and engineering —
+                            turning ideas into products that are
+                            visually strong, easy to use and technically
+                            clean.
+                        </p>
+
+
+                        <div class="about-note">
+
+                            I pay attention to the details:
+                            typography, spacing, hierarchy, responsive
+                            behavior, motion and the little interactions
+                            users remember.
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stats-grid reveal">
+
+                        <article class="stat-card">
+
+                            <div class="stat-card__num">
+                                3+
+                            </div>
+
+                            <div class="stat-card__label">
+                                Years of hands-on experience
+                            </div>
+
+                        </article>
+
+
+                        <article class="stat-card">
+
+                            <div class="stat-card__num">
+                                6+
+                            </div>
+
+                            <div class="stat-card__label">
+                                Core technologies and tools
+                            </div>
+
+                        </article>
+
+
+                        <article class="stat-card">
+
+                            <div class="stat-card__num">
+                                4+
+                            </div>
+
+                            <div class="stat-card__label">
+                                Websites and portfolio projects
+                            </div>
+
+                        </article>
+
+
+                        <article class="stat-card">
+
+                            <div class="stat-card__num">
+                                2
+                            </div>
+
+                            <div class="stat-card__label">
+                                Professional certificates
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SKILLS -->
+
+        <section class="section" id="skills">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div>
+
+                        <span class="section-label">
+                            02 — Skills
+                        </span>
+
+                        <h2 class="section-title">
+                            Built for
+                            <span>
+                                production.
+                            </span>
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="skills-grid">
+
+
+                    <article class="skill-item reveal">
+
+                        <div class="skill-item__head">
+
+                            <h3>
+                                Front-End Core
+                            </h3>
+
+                            <span class="skill-item__level">
+                                Strong
+                            </span>
+
+                        </div>
+
+
+                        <p class="skill-item__desc">
+                            Semantic HTML, scalable CSS,
+                            responsive layouts, accessibility,
+                            reusable components and clean structure.
+                        </p>
+
+
+                        <div class="skill-item__bar" aria-label="92 percent">
+                            <span style="--pct:92%;"></span>
+                        </div>
+
+
+                        <div class="skill-item__tags">
+
+                            <span class="tag">HTML5</span>
+                            <span class="tag">CSS3</span>
+                            <span class="tag">SCSS</span>
+                            <span class="tag">React</span>
+                            <span class="tag">Responsive</span>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="skill-item reveal">
+
+                        <div class="skill-item__head">
+
+                            <h3>
+                                JavaScript & UI
+                            </h3>
+
+                            <span class="skill-item__level">
+                                Strong
+                            </span>
+
+                        </div>
+
+
+                        <p class="skill-item__desc">
+                            Dynamic interfaces, DOM manipulation,
+                            animations, component logic and
+                            polished micro-interactions.
+                        </p>
+
+
+                        <div class="skill-item__bar" aria-label="84 percent">
+                            <span style="--pct:84%;"></span>
+                        </div>
+
+
+                        <div class="skill-item__tags">
+
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">DOM</span>
+                            <span class="tag">Animation</span>
+                            <span class="tag">UI Logic</span>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="skill-item reveal">
+
+                        <div class="skill-item__head">
+
+                            <h3>
+                                Workflow & Design
+                            </h3>
+
+                            <span class="skill-item__level">
+                                Confident
+                            </span>
+
+                        </div>
+
+
+                        <p class="skill-item__desc">
+                            Figma implementation, Git workflows,
+                            UI/UX thinking, collaboration and
+                            structured delivery.
+                        </p>
+
+
+                        <div class="skill-item__bar" aria-label="78 percent">
+                            <span style="--pct:78%;"></span>
+                        </div>
+
+
+                        <div class="skill-item__tags">
+
+                            <span class="tag">Figma</span>
+                            <span class="tag">Git</span>
+                            <span class="tag">GitHub</span>
+                            <span class="tag">UI/UX</span>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROJECTS -->
+
+        <section class="section" id="projects">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div>
+
+                        <span class="section-label">
+                            03 — Selected work
+                        </span>
+
+                        <h2 class="section-title">
+                            Projects with
+                            <span>
+                                purpose.
+                            </span>
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="projects-grid">
+
+
+                    <!-- FEATURED -->
+
+                    <article class="project project--featured reveal">
+                        <div class="project__content">
+                            <div class="project__top">
+                                <span class="project__num">
+                                    PROJECT 01
+                                </span>
+                                <span class="project__type">
+                                    WEATHER
+                                </span>
+                            </div>
+                            <h3 class="project__title">
+                                24 Forecast
+                            </h3>
+                            <p class="project__desc">
+                                A clean weather forecasting experience
+                                presenting meteorological data through
+                                a simple and intuitive interface.
+                            </p>
+                            <div class="project__tags">
+                                <span class="project__tag">
+                                    HTML5
+                                </span>
+                                <span class="project__tag">
+                                    CSS3
+                                </span>
+                                <span class="project__tag">
+                                    JavaScript
+                                </span>
+                                <span class="project__tag">
+                                    TypeScript
+                                </span>
+                                <span class="project__tag">
+                                    React
+                                </span>
+                            </div>
+                            <div class="project__footer">
+                                <a class="project__link" href="https://nikitasapianyk.github.io/24-forecast/"
+                                    target="_blank" rel="noopener noreferrer">View live project
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M7 17L17 7"></path>
+                                        <path d="M7 7h10v10"></path>
+                                    </svg>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="project__visual">
+                            <div class="weather-visual" aria-hidden="true">
+
+                                <div class="weather-sun">
+                                    <span class="weather-sun__ring"></span>
+                                    <span class="weather-sun__ring weather-sun__ring--2"></span>
+                                    <span class="weather-sun__core"></span>
+                                </div>
+
+                                <svg class="weather-cloud" viewBox="0 0 220 140">
+                                    <defs>
+                                        <linearGradient id="cloudFill" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0" stop-color="#fff" stop-opacity=".30" />
+                                            <stop offset="1" stop-color="#fff" stop-opacity=".06" />
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M50 110 A30 30 0 0 1 50 50 A42 42 0 0 1 128 40 A45 45 0 0 1 170 110 Z"
+                                        fill="url(#cloudFill)" stroke="rgba(255,255,255,.24)" stroke-width="1.5" />
+                                </svg>
+
+                                <span class="weather-drop weather-drop--1"></span>
+                                <span class="weather-drop weather-drop--2"></span>
+                                <span class="weather-drop weather-drop--3"></span>
+
+                                
+
+                            </div>
+                        </div>
+
+                    </article>
+
+
+                    <!-- PROJECT 02 -->
+
+                    <article class="project reveal">
+
+                        <div class="project__content">
+
+                            <div class="project__top">
+
+                                <span class="project__num">
+                                    PROJECT 02
+                                </span>
+
+                                <span class="project__type">
+                                    COMPANY WEBSITE
+                                </span>
+
+                            </div>
+
+
+                            <h3 class="project__title">
+                                WebStudio
+                            </h3>
+
+
+                            <p class="project__desc">
+                                A premium corporate landing page built
+                                around visual hierarchy, clean typography,
+                                smooth interactions and a strong modern
+                                aesthetic.
+                            </p>
+
+
+                            <div class="project__tags">
+
+                                <span class="project__tag">
+                                    HTML5
+                                </span>
+
+                                <span class="project__tag">
+                                    CSS3
+                                </span>
+
+                                <span class="project__tag">
+                                    JavaScript
+                                </span>
+
+                            </div>
+
+
+                            <div class="project__footer">
+
+                                <a class="project__link" href="https://nikitasapianyk.github.io/webstudio2.0/"
+                                    target="_blank" rel="noopener noreferrer">
+                                    View live project
+
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M7 17L17 7"></path>
+                                        <path d="M7 7h10v10"></path>
+                                    </svg>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PROJECT 03 -->
+
+                    <article class="project reveal">
+
+                        <div class="project__content">
+
+                            <div class="project__top">
+
+                                <span class="project__num">
+                                    PROJECT 03
+                                </span>
+
+                                <span class="project__type">
+                                    E-COMMERCE
+                                </span>
+
+                            </div>
+
+
+                            <h3 class="project__title">
+                                CtrlStore
+                            </h3>
+
+
+                            <p class="project__desc">
+                                A modern e-commerce experience with a
+                                clear structure, smooth navigation and
+                                focused product presentation.
+                            </p>
+
+
+                            <div class="project__tags">
+
+                                <span class="project__tag">
+                                    HTML5
+                                </span>
+
+                                <span class="project__tag">
+                                    CSS3
+                                </span>
+
+                                <span class="project__tag">
+                                    JavaScript
+                                </span>
+
+                            </div>
+
+
+                            <div class="project__footer">
+
+                                <a class="project__link" href="https://nikitasapianyk.github.io/ctrl_store/"
+                                    target="_blank" rel="noopener noreferrer">
+                                    View live project
+
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M7 17L17 7"></path>
+                                        <path d="M7 7h10v10"></path>
+                                    </svg>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PROJECT 04 -->
+
+                    <article class="project reveal">
+
+                        <div class="project__content">
+
+                            <div class="project__top">
+
+                                <span class="project__num">
+                                    PROJECT 04
+                                </span>
+
+                                <span class="project__type">
+                                    COMPANY
+                                </span>
+
+                            </div>
+
+
+                            <h3 class="project__title">
+                                Pharma
+                            </h3>
+
+
+                            <p class="project__desc">
+                                A professional consulting website
+                                presenting pharmaceutical expertise
+                                and strategic solutions.
+                            </p>
+
+
+                            <div class="project__tags">
+
+                                <span class="project__tag">
+                                    HTML5
+                                </span>
+
+                                <span class="project__tag">
+                                    CSS3
+                                </span>
+
+                                <span class="project__tag">
+                                    JavaScript
+                                </span>
+
+                            </div>
+
+
+                            <div class="project__footer">
+
+                                <a class="project__link" href="https://www.ed-pharma.eu/" target="_blank"
+                                    rel="noopener noreferrer">
+                                    View live project
+
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M7 17L17 7"></path>
+                                        <path d="M7 7h10v10"></path>
+                                    </svg>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CTA -->
+
+                    <article class="project reveal">
+
+                        <div class="project__content">
+
+                            <div class="project__top">
+
+                                <span class="project__num">
+                                    NEXT PROJECT
+                                </span>
+
+                                <span class="project__type">
+                                    AVAILABLE
+                                </span>
+
+                            </div>
+
+
+                            <h3 class="project__title">
+                                Your idea.
+                            </h3>
+
+
+                            <p class="project__desc">
+                                A landing page, redesign, startup product
+                                or custom web experience — this could be
+                                the next project here.
+                            </p>
+
+
+                            <div class="project__footer">
+
+                                <a class="project__link" href="#contact">
+                                    Let's build it
+
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M7 17L17 7"></path>
+                                        <path d="M7 7h10v10"></path>
+                                    </svg>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CERTIFICATES -->
+
+        <section class="section" id="certificates">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div>
+
+                        <span class="section-label">
+                            04 — Certificates
+                        </span>
+
+                        <h2 class="section-title">
+                            Always
+                            <span>
+                                learning.
+                            </span>
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="certs-grid">
+
+
+                    <article class="cert reveal">
+
+                        <div class="cert__icon">
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3l2.2 4.8 5.3.7-3.9 3.7.9 5.3-4.5-2.5-4.5 2.5.9-5.3-3.9-3.7 5.3-.7z">
+                                </path>
+                            </svg>
+
+                        </div>
+
+
+                        <h3 class="cert__title">
+                            HTML & CSS Professional Track
+                        </h3>
+
+
+                        <p class="cert__desc">
+                            Structured training focused on semantic
+                            markup, responsive layouts, modern CSS
+                            and professional front-end practices.
+                        </p>
+
+
+                        <div class="cert__footer">
+
+                            <time class="cert__date">
+                                2023 — 2024
+                            </time>
+
+
+                            <a class="project__link"
+                                href="https://drive.google.com/file/d/1dxPm-PSxF3YoSTxdFANsw9QSWZFr_hGC/view?usp=sharing"
+                                target="_blank" rel="noopener noreferrer">
+                                View certificate
+
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7"></path>
+                                    <path d="M7 7h10v10"></path>
+                                </svg>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="cert reveal">
+
+                        <div class="cert__icon">
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3l2.2 4.8 5.3.7-3.9 3.7.9 5.3-4.5-2.5-4.5 2.5.9-5.3-3.9-3.7 5.3-.7z">
+                                </path>
+                            </svg>
+
+                        </div>
+
+
+                        <h3 class="cert__title">
+                            JavaScript Professional Track
+                        </h3>
+
+
+                        <p class="cert__desc">
+                            Practical JavaScript training focused
+                            on interactivity, logic, DOM manipulation
+                            and better user experiences.
+                        </p>
+
+
+                        <div class="cert__footer">
+
+                            <time class="cert__date">
+                                2024 — 2025
+                            </time>
+
+
+                            <a class="project__link"
+                                href="https://drive.google.com/file/d/1RYgz2doDHmT7nI_7mUXsP9bfFPApCoU1/view?usp=sharing"
+                                target="_blank" rel="noopener noreferrer">
+                                View certificate
+
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7"></path>
+                                    <path d="M7 7h10v10"></path>
+                                </svg>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTACT -->
+
+        <section class="section" id="contact">
+
+            <div class="container">
+
+                <div class="contact-wrap reveal">
+
+                    <div class="contact-inner">
+
+
+                        <div class="contact-main">
+
+                            <span class="section-label">
+                                05 — Contact
+                            </span>
+
+
+                            <h2 class="section-title">
+                                Let's create something
+                                <span>
+                                    memorable.
+                                </span>
+                            </h2>
+
+
+                            <p>
+                                I'm open to Front-End Developer
+                                opportunities, freelance collaborations
+                                and product-focused web work.
+                            </p>
+
+
+                            <div class="contact-actions">
+
+                                <a class="btn btn--primary" href="mailto:nikita.sapianyk@gmail.com">
+                                    Email me
+
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+
+                                        <path d="M22 6l-10 7L2 6"></path>
+                                    </svg>
+
+                                </a>
+
+
+                                <a class="btn btn--ghost" href="tel:+48722756185">
+                                    Call me
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                        <aside class="contact-sidebar">
+
+
+                            <div>
+
+                                <div class="contact-item__label">
+                                    Email
+                                </div>
+
+                                <a class="contact-item__value" href="mailto:nikita.sapianyk@gmail.com">
+                                    nikita.sapianyk@gmail.com
+                                </a>
+
+                            </div>
+
+
+                            <div>
+
+                                <div class="contact-item__label">
+                                    Phone
+                                </div>
+
+                                <a class="contact-item__value" href="tel:+48722756185">
+                                    +48 722 756 185
+                                </a>
+
+                            </div>
+
+
+                            <div>
+
+                                <div class="contact-item__label">
+                                    Social
+                                </div>
+
+
+                                <div class="social-row">
+
+
+                                    <a class="social-link" href="https://github.com/NikitaSapianyk" target="_blank"
+                                        rel="noopener noreferrer">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.395-.135-.345-.72-1.395-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z">
+                                            </path>
+                                        </svg>
+
+                                        GitHub
+                                    </a>
+
+
+                                    <a class="social-link" href="#" aria-label="LinkedIn">
+
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 114.127 0 2.063 2.063 0 01-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z">
+                                            </path>
+                                        </svg>
+
+                                        LinkedIn
+                                    </a>
+
+
+                                    <a class="social-link" href="https://t.me/skylone_tt" target="_blank"
+                                        rel="noopener noreferrer">
+
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z">
+                                            </path>
+                                        </svg>
+
+                                        Telegram
+                                    </a>
+
+
+                                </div>
+
+                            </div>
+
+                        </aside>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ========================================================
        FOOTER
   ========================================================= -->
 
-  <footer class="site-footer">
+    <footer class="site-footer">
 
-    <div class="container site-footer__inner">
+        <div class="container site-footer__inner">
 
-      <p>
-        © 2026 Nikita Sapianyk — Front-End Developer
-      </p>
-
-
-      <a
-        class="site-footer__back"
-        href="#home"
-      >
-        Back to top ↑
-      </a>
-
-    </div>
-
-  </footer>
+            <p>
+                © 2026 Nikita Sapianyk — Front-End Developer
+            </p>
 
 
-  <!-- ========================================================
+            <a class="site-footer__back" href="#home">
+                Back to top ↑
+            </a>
+
+        </div>
+
+    </footer>
+
+
+    <!-- ========================================================
        JAVASCRIPT
   ========================================================= -->
 
-  <script>
-    const root =
-      document.documentElement;
+    <script src="./script.js">
 
-    const themeToggle =
-      document.getElementById(
-        "themeToggle"
-      );
-
-    const themeIcon =
-      document.getElementById(
-        "themeIcon"
-      );
-
-    const menuToggle =
-      document.getElementById(
-        "menuToggle"
-      );
-
-    const navMenu =
-      document.getElementById(
-        "navMenu"
-      );
-
-    const navLinks =
-      [...document.querySelectorAll(
-        ".nav-menu a"
-      )];
-
-
-    /* =======================================================
-       THEME
-    ======================================================== */
-
-    const savedTheme =
-      localStorage.getItem(
-        "theme"
-      );
-
-    if (savedTheme) {
-      root.dataset.theme =
-        savedTheme;
-    }
-
-
-    const sunIcon = `
-      <circle cx="12" cy="12" r="5"></circle>
-      <path d="M12 1v2"></path>
-      <path d="M12 21v2"></path>
-      <path d="M4.22 4.22l1.42 1.42"></path>
-      <path d="M18.36 18.36l1.42 1.42"></path>
-      <path d="M1 12h2"></path>
-      <path d="M21 12h2"></path>
-      <path d="M4.22 19.78l1.42-1.42"></path>
-      <path d="M18.36 5.64l1.42-1.42"></path>
-    `;
-
-
-    const moonIcon = `
-      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-    `;
-
-
-    function updateThemeIcon() {
-
-      const isLight =
-        root.dataset.theme ===
-        "light";
-
-      themeIcon.innerHTML =
-        isLight
-          ? moonIcon
-          : sunIcon;
-    }
-
-
-    updateThemeIcon();
-
-
-    themeToggle.addEventListener(
-      "click",
-      () => {
-
-        const nextTheme =
-          root.dataset.theme ===
-          "light"
-            ? "dark"
-            : "light";
-
-        root.dataset.theme =
-          nextTheme;
-
-        localStorage.setItem(
-          "theme",
-          nextTheme
-        );
-
-        updateThemeIcon();
-      }
-    );
-
-
-    /* =======================================================
-       MOBILE MENU
-    ======================================================== */
-
-    function closeMenu() {
-
-      navMenu.classList.remove(
-        "is-open"
-      );
-
-      menuToggle.setAttribute(
-        "aria-expanded",
-        "false"
-      );
-
-      document.body.style.overflow =
-        "";
-    }
-
-
-    menuToggle.addEventListener(
-      "click",
-      () => {
-
-        const open =
-          navMenu.classList.toggle(
-            "is-open"
-          );
-
-        menuToggle.setAttribute(
-          "aria-expanded",
-          String(open)
-        );
-
-        document.body.style.overflow =
-          open ? "hidden" : "";
-      }
-    );
-
-
-    navLinks.forEach(
-      (link) => {
-
-        link.addEventListener(
-          "click",
-          closeMenu
-        );
-
-      }
-    );
-
-
-    /* =======================================================
-       SMOOTH SCROLL
-    ======================================================== */
-
-    document
-      .querySelectorAll(
-        'a[href^="#"]'
-      )
-      .forEach(
-        (link) => {
-
-          link.addEventListener(
-            "click",
-            (event) => {
-
-              const id =
-                link.getAttribute(
-                  "href"
-                );
-
-              const target =
-                document.querySelector(
-                  id
-                );
-
-              if (!target) {
-                return;
-              }
-
-              event.preventDefault();
-
-              target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-              });
-
-            }
-          );
-
-        }
-      );
-
-
-    /* =======================================================
-       ACTIVE NAV
-    ======================================================== */
-
-    const sections =
-      navLinks
-        .map(
-          (link) =>
-            document.querySelector(
-              link.getAttribute("href")
-            )
-        )
-        .filter(Boolean);
-
-
-    const sectionObserver =
-      new IntersectionObserver(
-        (entries) => {
-
-          entries.forEach(
-            (entry) => {
-
-              if (
-                !entry.isIntersecting
-              ) {
-                return;
-              }
-
-              navLinks.forEach(
-                (link) => {
-
-                  link.classList.toggle(
-                    "is-active",
-                    link.getAttribute(
-                      "href"
-                    ) ===
-                    `#${entry.target.id}`
-                  );
-
-                }
-              );
-
-            }
-          );
-
-        },
-        {
-          rootMargin:
-            "-35% 0px -55% 0px"
-        }
-      );
-
-
-    sections.forEach(
-      (section) =>
-        sectionObserver.observe(
-          section
-        )
-    );
-
-
-    /* =======================================================
-       REVEAL
-    ======================================================== */
-
-    const revealElements =
-      document.querySelectorAll(
-        ".reveal"
-      );
-
-
-    const revealObserver =
-      new IntersectionObserver(
-        (entries, observer) => {
-
-          entries.forEach(
-            (entry) => {
-
-              if (
-                !entry.isIntersecting
-              ) {
-                return;
-              }
-
-              entry.target.classList.add(
-                "is-visible"
-              );
-
-              observer.unobserve(
-                entry.target
-              );
-
-            }
-          );
-
-        },
-        {
-          threshold: .12,
-          rootMargin:
-            "0px 0px -50px 0px"
-        }
-      );
-
-
-    revealElements.forEach(
-      (element, index) => {
-
-        element.style.transitionDelay =
-          `${Math.min(
-            index * 65,
-            320
-          )}ms`;
-
-        revealObserver.observe(
-          element
-        );
-
-      }
-    );
-
-
-    /* =======================================================
-       DESKTOP PHOTO TILT
-    ======================================================== */
-
-    const photoCard =
-      document.querySelector(
-        ".hero__visual"
-      );
-
-
-    if (photoCard) {
-
-      photoCard.addEventListener(
-        "mousemove",
-        (event) => {
-
-          if (
-            window.innerWidth < 900
-          ) {
-            return;
-          }
-
-          const rect =
-            photoCard.getBoundingClientRect();
-
-
-          const x =
-            (event.clientX -
-              rect.left) /
-            rect.width;
-
-
-          const y =
-            (event.clientY -
-              rect.top) /
-            rect.height;
-
-
-          const rotateX =
-            (0.5 - y) * 5;
-
-
-          const rotateY =
-            (x - 0.5) * 5;
-
-
-          photoCard.style.transform =
-            `
-              perspective(1100px)
-              rotateX(${rotateX}deg)
-              rotateY(${rotateY}deg)
-            `;
-        }
-      );
-
-
-      photoCard.addEventListener(
-        "mouseleave",
-        () => {
-
-          photoCard.style.transform =
-            "rotate(1.8deg)";
-        }
-      );
-
-    }
-
-
-    /* =======================================================
-       CLOSE MENU WITH ESC
-    ======================================================== */
-
-    document.addEventListener(
-      "keydown",
-      (event) => {
-
-        if (
-          event.key === "Escape"
-        ) {
-          closeMenu();
-        }
-
-      }
-    );
-  </script>
+    </script>
 
 </body>
+
 </html>
