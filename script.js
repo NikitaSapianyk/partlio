@@ -114,6 +114,11 @@
         "false"
       );
 
+      menuToggle.setAttribute(
+        "aria-label",
+        "Open menu"
+      );
+
       document.body.style.overflow =
         "";
     }
@@ -133,10 +138,56 @@
           String(open)
         );
 
+        menuToggle.setAttribute(
+          "aria-label",
+          open ? "Close menu" : "Open menu"
+        );
+
         document.body.style.overflow =
           open ? "hidden" : "";
       }
     );
+
+
+    /* close on outside click */
+
+    document.addEventListener(
+      "click",
+      (event) => {
+
+        if (
+          !navMenu.classList.contains(
+            "is-open"
+          )
+        ) {
+          return;
+        }
+
+        if (
+          navMenu.contains(event.target) ||
+          menuToggle.contains(event.target)
+        ) {
+          return;
+        }
+
+        closeMenu();
+      }
+    );
+
+
+    /* close when resized to desktop */
+
+    window
+      .matchMedia("(min-width: 761px)")
+      .addEventListener(
+        "change",
+        (event) => {
+
+          if (event.matches) {
+            closeMenu();
+          }
+        }
+      );
 
 
     navLinks.forEach(
