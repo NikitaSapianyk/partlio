@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description"
         content="Nikita Sapianyk — Front-End Developer creating modern, responsive and polished digital experiences." />
     <meta name="theme-color" content="#07080b" />
@@ -17,6 +17,9 @@
 </head>
 
 <body>
+
+    <!-- top light rays background -->
+    <div class="rays" aria-hidden="true"></div>
 
     <!-- ========================================================
        HEADER
@@ -48,6 +51,7 @@
 
 
             <div class="nav-tools">
+
 
                 <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">
                     <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -152,7 +156,7 @@
                 <div class="hero__visual reveal">
 
                     <img class="hero__photo" src="./photo.png" alt="Portrait of Nikita Sapianyk" width="640"
-                        height="680" />
+                        height="680" fetchpriority="high" decoding="async" />
 
 
                     <div class="photo-floating-card">
